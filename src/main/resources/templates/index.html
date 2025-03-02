@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Coffee List</title>
+</head>
+<body>
+<h1>Available Coffees</h1>
+<ul>
+    <li th:each="coffee : ${coffees}">
+        <span th:text="${coffee.name}"></span>
+        <a th:href="@{/delete(id=${coffee.id})}">Delete</a>
+    </li>
+</ul>
+</body>
+</html>
