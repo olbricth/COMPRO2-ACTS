@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Edit [[${coffee.name}]]</title>
+</head>
+<body>
+<h1 th:text="'Edit ' + ${coffee.name}"></h1>
+<div>
+    <form action="/updateCoffee" method="POST">
+        <input type="hidden" name="id" th:value="${coffee.id}">
+        <div>
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" th:value="${coffee.name}" required>
+        </div>
+        <div>
+            <label for="type">Type</label>
+            <input type="text" id="type" name="type" th:value="${coffee.type}">
+        </div>
+        <div>
+            <label for="size">Size</label>
+            <input type="text" id="size" name="size" th:value="${coffee.size}">
+        </div>
+        <div>
+            <label for="price">Price</label>
+            <input type="number" id="price" name="price" step="0.01" th:value="${coffee.price}" required>
+        </div>
+        <div>
+            <label for="roastLevel">Roast Level</label>
+            <input type="text" id="roastLevel" name="roastLevel" th:value="${coffee.roastLevel}">
+        </div>
+        <div>
+            <label for="origin">Origin</label>
+            <input type="text" id="origin" name="origin" th:value="${coffee.origin}">
+        </div>
+        <div>
+            <label for="isDecaf">Decaf</label>
+            <input type="checkbox" id="isDecaf" name="isDecaf" th:checked="${coffee.isDecaf}">
+        </div>
+        <div>
+            <label for="stock">Stock</label>
+            <input type="number" id="stock" name="stock" th:value="${coffee.stock}">
+        </div>
+        <div>
+            <label for="flavorNotes">Flavor Notes</label>
+            <textarea id="flavorNotes" name="flavorNotes" rows="2" cols="20" th:text="${coffee.flavorNotes}"></textarea>
+        </div>
+        <div>
+            <label for="brewMethod">Brew Method</label>
+            <input type="text" id="brewMethod" name="brewMethod" th:value="${coffee.brewMethod}">
+        </div>
+        <button>Edit</button>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>New Coffee</title>
+</head>
+<body>
+<h1>New Coffee</h1>
+<div>
+    <form action="/saveCoffee" method="POST">
+        <div>
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div>
+            <label for="type">Type</label>
+            <input type="text" id="type" name="type">
+        </div>
+        <div>
+            <label for="size">Size</label>
+            <input type="text" id="size" name="size">
+        </div>
+        <div>
+            <label for="price">Price</label>
+            <input type="number" id="price" name="price" step="0.01" required>
+        </div>
+        <div>
+            <label for="roastLevel">Roast Level</label>
+            <input type="text" id="roastLevel" name="roastLevel">
+        </div>
+        <div>
+            <label for="origin">Origin</label>
+            <input type="text" id="origin" name="origin">
+        </div>
+        <div>
+            <label for="isDecaf">Decaf</label>
+            <input type="checkbox" id="isDecaf" name="isDecaf">
+        </div>
+        <div>
+            <label for="stock">Stock</label>
+            <input type="number" id="stock" name="stock">
+        </div>
+        <div>
+            <label for="flavorNotes">Flavor Notes</label>
+            <textarea id="flavorNotes" name="flavorNotes" rows="2" cols="20"></textarea>
+        </div>
+        <div>
+            <label for="brewMethod">Brew Method</label>
+            <input type="text" id="brewMethod" name="brewMethod">
+        </div>
+        <button>Save</button>
+    </form>
+</div>
+</body>
+</html>

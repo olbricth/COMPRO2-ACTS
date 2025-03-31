@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Coffee List</title>
+</head>
+<body>
+<h1>Available Coffees</h1>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Coffee Name</th>
+        <th>Coffee Type</th>
+        <th>Coffee Size</th>
+        <th>Coffee Price</th>
+        <th>Coffee Roast Level</th>
+        <th>Coffee Origin</th>
+        <th>Coffee Decaf</th>
+        <th>Coffee Stock</th>
+        <th>Flavor Notes</th>
+        <th>Coffee Brew Method</th>
+        <th>Action</th> <!-- Column for Delete Button -->
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="coffee : ${coffees}">
+        <td th:text="${coffee.name}"></td>
+        <td th:text="${coffee.type}"></td>
+        <td th:text="${coffee.size}"></td>
+        <td th:text="${coffee.price}"></td>
+        <td th:text="${coffee.roastLevel}"></td>
+        <td th:text="${coffee.origin}"></td>
+        <td th:text="${coffee.decaf} ? 'Yes' : 'No'"></td>
+        <td th:text="${coffee.stock}"></td>
+        <td th:text="${coffee.flavorNotes}"></td>
+        <td th:text="${coffee.brewMethod}"></td>
+        <td>
+            <a th:href="@{/delete(id=${coffee.id})}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
+
