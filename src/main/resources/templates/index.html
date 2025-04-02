@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Coffee</title>
+</head>
+<style>
+    /* General page styling */
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0; /* Removes default browser margin */
+        padding: 20px;
+        background-color: #ffc0cb; /* Light pink background */
+        text-align: center; /* Centers text */
+    }
+
+    h1 {
+        color: #5d0032; /* Sets header text color */
+    }
+
+    /* Search and form container styling */
+    form {
+        background-color: #ffc0cb; /* Light pink form background */
+        padding: 15px;
+        border-radius: 5px; /* Rounded corners */
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Adds subtle shadow */
+        width: 40%;
+        margin: auto; /* Centers the form */
+    }
+
+    /* Table styling */
+    table {
+        width: 90%;
+        margin: 10px auto; /* Centers table */
+        background-color: rgb(255, 183, 183); /* Darker pink */
+        border-spacing: 2px; /* Minimizes cell spacing */
+        border: 3px solid #5d0032; /* Dark pink border */
+        border-radius: 10px;
+    }
+
+    th, td {
+        padding: 2px;
+        border: 3px solid #5d0032; /* Matches table border */
+        border-radius: 5px;
+        height: 10px;
+    }
+
+    th {
+        background-color: #5d0032; /* Darkest shade for headers */
+        color: rgb(255, 183, 183); /* Text color contrasts with background */
+    }
+
+    /* Button styling */
+    button {
+        background-color: #5d0032; /* Dark pink button */
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        width: 100%;
+    }
+
+    button:hover {
+        background-color: #720028; /* Darker shade when hovered */
+    }
+
+    /* Link styling */
+    a {
+        display: block;
+        text-align: center;
+        margin-top: 5px;
+        margin-bottom: 8px;
+        color: #720028;
+        text-decoration: none;
+        height: 10px;
+    }
+
+    /* List styling */
+    ul, ol {
+        padding: 0;
+        margin: 0;
+    }
+
+    tr {
+        height: 10px;
+    }
+
+    li {
+        margin-bottom: 5px; /* Reduces spacing */
+        padding: 2px; /* Minimizes padding */
+    }
+
+    /* Search container styling */
+    .search-container {
+        background-color: rgb(255, 183, 183); /* Darker pink */
+        padding: 15px;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        width: 40%;
+        margin: auto;
+        text-align: center;
+    }
+
+    .search-box {
+        width: 100%;
+        padding: 6px;
+        border: 1px solid #5d0032;
+        border-radius: 4px;
+    }
+
+    .search-button {
+        background-color: #5d0032;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        width: 100%;
+        margin-top: 8px;
+    }
+
+    .search-button:hover {
+        background-color: #720028;
+    }
+</style>
+
+<body>
+<h1>Available Coffees</h1> <!-- Page header -->
+
+<!-- Search form -->
+<div>
+    <form action="/" method="get">
+        <input type="text" name="search" placeholder="search coffee..." th:value="${search}">
+        <button type="submit">Search</button>
+    </form>
+    <a href="/create">Add new Coffee</a> <!-- Link to coffee creation page -->
+</div>
+
+<!-- Coffee list table -->
+<table border="1">
+    <thead>
+    <tr>
+        <th>Coffee Name</th>
+        <th>Coffee Type</th>
+        <th>Coffee Size</th>
+        <th>Coffee Price</th>
+        <th>Coffee Roast Level</th>
+        <th>Coffee Origin</th>
+        <th>Coffee Decaf</th>
+        <th>Coffee Stock</th>
+        <th>Flavor Notes</th>
+        <th>Coffee Brew Method</th>
+        <th>Action</th> <!-- Column for Delete and Edit Buttons -->
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Iterates over each coffee object dynamically -->
+    <tr th:each="coffee : ${coffees}">
+        <td th:text="${coffee.name}"></td>
+        <td th:text="${coffee.type}"></td>
+        <td th:text="${coffee.size}"></td>
+        <td th:text="${coffee.price}"></td>
+        <td th:text="${coffee.roastLevel}"></td>
+        <td th:text="${coffee.origin}"></td>
+        <td th:text="${coffee.decaf} ? 'Yes' : 'No'"></td>
+        <td th:text="${coffee.stock}"></td>
+        <td th:text="${coffee.flavorNotes}"></td>
+        <td th:text="${coffee.brewMethod}"></td>
+        <td>
+            <a th:href="@{/delete(id=${coffee.id})}">Delete</a> <!-- Delete coffee entry -->
+            <a th:href="@{/edit(id=${coffee.id})}">Edit</a> <!-- Edit coffee entry -->
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

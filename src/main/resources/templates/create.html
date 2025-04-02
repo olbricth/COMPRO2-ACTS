@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" xmlns: th ="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Add New Coffee</title>
+
+    <style>
+        /* General page styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #ffc0cb; /* Light pink background */
+            text-align: center; /* Centers text */
+        }
+
+        h1 {
+            color: #b27982; /* Header color */
+        }
+
+        /* Form styling */
+        form {
+            background-color: rgb(255, 183, 183); /* Darker pink */
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            width: 40%;
+            margin: auto; /* Centers the form */
+        }
+
+        div {
+            margin-bottom: 8px;
+        }
+
+        /* Label styling */
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* Input fields styling */
+        input, select, textarea {
+            width: 100%;
+            padding: 6px;
+            border: 1px solid #5d0032; /* Dark border */
+            border-radius: 4px;
+        }
+
+        /* Button styling */
+        button {
+            background-color: #5d0032; /* Dark red */
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #720028; /* Darker red on hover */
+        }
+
+        /* Link styling */
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+            color: #720028;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Add a New Coffee</h1> <!-- Main heading -->
+
+<form action="/saveCoffee" method="post"> <!-- Form that submits coffee data -->
+
+    <!-- Coffee name selection -->
+    <div>
+        <label for="name">Name:</label>
+        <select id="name" name="name">
+            <option>Espresso</option>
+            <option>Latte</option>
+            <option>Cappuccino</option>
+            <option>Mocha</option>
+            <option>Americano</option>
+            <option>Flat White</option>
+            <option>Macchiato</option>
+            <option>Ristretto</option>
+            <option>Affogato</option>
+        </select>
+    </div>
+
+    <!-- Coffee type selection -->
+    <div>
+        <label for="type">Type:</label>
+        <select id="type" name="type">
+            <option>Arabica</option>
+            <option>Robusta</option>
+            <option>Liberica</option>
+            <option>Excelsa</option>
+        </select>
+    </div>
+
+    <!-- Coffee size selection -->
+    <div>
+        <label for="size">Size:</label>
+        <select id="size" name="size">
+            <option>Small</option>
+            <option>Medium</option>
+            <option>Large</option>
+        </select>
+    </div>
+
+    <!-- Price input field -->
+    <div>
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="price" step="0.01" required>
+    </div>
+
+    <!-- Roast level selection -->
+    <div>
+        <label for="roastLevel">Roast Level:</label>
+        <select id="roastLevel" name="roastLevel">
+            <option>Light</option>
+            <option>Medium</option>
+            <option>Dark</option>
+        </select>
+    </div>
+
+    <!-- Coffee origin selection -->
+    <div>
+        <label for="origin">Origin:</label>
+        <select id="origin" name="origin">
+            <option>Ethiopia</option>
+            <option>Brazil</option>
+            <option>Colombia</option>
+            <option>Guatemala</option>
+            <option>Kenya</option>
+            <option>Vietnam</option>
+            <option>Indonesia</option>
+            <option>Italy</option>
+            <option>Australia</option>
+        </select>
+    </div>
+
+    <!-- Decaf checkbox -->
+    <div>
+        <label for="isDecaf">Decaf:</label>
+        <input type="checkbox" id="isDecaf" name="isDecaf">
+    </div>
+
+    <!-- Stock input field -->
+    <div>
+        <label for="stock">Stock:</label>
+        <input type="number" id="stock" name="stock">
+    </div>
+
+    <!-- Flavor notes textarea -->
+    <div>
+        <label for="flavorNotes">Flavor Notes:</label>
+        <textarea id="flavorNotes" name="flavorNotes" rows="2" placeholder="Enter comma-separated notes"></textarea>
+    </div>
+
+    <!-- Brew method selection -->
+    <div>
+        <label for="brewMethod">Brew Method:</label>
+        <select id="brewMethod" name="brewMethod">
+            <option>Espresso</option>
+            <option>Drip</option>
+            <option>French Press</option>
+        </select>
+    </div>
+
+    <!-- Submit button -->
+    <button type="submit">Add Coffee</button>
+</form>
+
+<!-- Back to list link -->
+<a href="/">Back to List</a>
+
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Edit Coffee</title>
+
+    <style>
+        /* General styling for the page */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #ffc0cb; /* Light pink background */
+            text-align: center; /* Centers text */
+        }
+
+        h1 {
+            color: #b27982; /* Custom color for the header */
+        }
+
+        /* Styling for the form container */
+        form {
+            background-color: rgb(255, 183, 183); /* Slightly darker pink */
+            padding: 15px;
+            border-radius: 5px; /* Rounded corners */
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+            width: 40%;
+            margin: auto; /* Centers the form */
+        }
+
+        div {
+            margin-bottom: 8px; /* Spacing between form elements */
+        }
+
+        /* Labels styling */
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* Input, dropdown, and text area styling */
+        input, select, textarea {
+            width: 100%;
+            padding: 6px;
+            border: 1px solid #5d0032; /* Dark border */
+            border-radius: 4px;
+        }
+
+        /* Styling for the submit button */
+        button {
+            background-color: #5d0032; /* Dark red */
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #720028; /* Darker red on hover */
+        }
+
+        /* Link styling */
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+            color: #720028;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Displays the coffee name dynamically -->
+<h1 th:text="'Edit ' + ${coffee.name}"></h1>
+
+<div>
+    <form action="/update" method="POST"> <!-- Form submits data to update a coffee entry -->
+        <input type="hidden" name="id" th:value="${coffee.id}"> <!-- Stores coffee ID for updating -->
+
+        <!-- Coffee Name Selection -->
+        <div>
+            <label for="name">Name</label>
+            <select id="name" name="name">
+                <option th:selected="${coffee.name == 'Espresso'}">Espresso</option>
+                <option th:selected="${coffee.name == 'Latte'}">Latte</option>
+                <option th:selected="${coffee.name == 'Cappuccino'}">Cappuccino</option>
+                <option th:selected="${coffee.name == 'Mocha'}">Mocha</option>
+                <option th:selected="${coffee.name == 'Americano'}">Americano</option>
+            </select>
+        </div>
+
+        <!-- Coffee Type Selection -->
+        <div>
+            <label for="type">Type</label>
+            <select id="type" name="type">
+                <option th:selected="${coffee.type == 'Arabica'}">Arabica</option>
+                <option th:selected="${coffee.type == 'Robusta'}">Robusta</option>
+                <option th:selected="${coffee.type == 'Liberica'}">Liberica</option>
+                <option th:selected="${coffee.type == 'Excelsa'}">Excelsa</option>
+            </select>
+        </div>
+
+        <!-- Coffee Size Selection -->
+        <div>
+            <label for="size">Size</label>
+            <select id="size" name="size">
+                <option th:selected="${coffee.size == 'Small'}">Small</option>
+                <option th:selected="${coffee.size == 'Medium'}">Medium</option>
+                <option th:selected="${coffee.size == 'Large'}">Large</option>
+            </select>
+        </div>
+
+        <!-- Price Input -->
+        <div>
+            <label for="price">Price</label>
+            <input type="number" id="price" name="price" step="0.01" th:value="${coffee.price}" required>
+        </div>
+
+        <!-- Roast Level Selection -->
+        <div>
+            <label for="roastLevel">Roast Level</label>
+            <select id="roastLevel" name="roastLevel">
+                <option th:selected="${coffee.roastLevel == 'Light'}">Light</option>
+                <option th:selected="${coffee.roastLevel == 'Medium'}">Medium</option>
+                <option th:selected="${coffee.roastLevel == 'Dark'}">Dark</option>
+            </select>
+        </div>
+
+        <!-- Coffee Origin Selection -->
+        <div>
+            <label for="origin">Origin</label>
+            <select id="origin" name="origin">
+                <option th:selected="${coffee.origin == 'Ethiopia'}">Ethiopia</option>
+                <option th:selected="${coffee.origin == 'Brazil'}">Brazil</option>
+                <option th:selected="${coffee.origin == 'Colombia'}">Colombia</option>
+                <option th:selected="${coffee.origin == 'Guatemala'}">Guatemala</option>
+                <option th:selected="${coffee.origin == 'Kenya'}">Kenya</option>
+            </select>
+        </div>
+
+        <!-- Decaf Checkbox -->
+        <div>
+            <label for="isDecaf">Decaf</label>
+            <input type="checkbox" id="isDecaf" name="isDecaf" th:checked="${coffee.isDecaf}">
+        </div>
+
+        <!-- Stock Input -->
+        <div>
+            <label for="stock">Stock</label>
+            <input type="number" id="stock" name="stock" th:value="${coffee.stock}">
+        </div>
+
+        <!-- Flavor Notes Text Area -->
+        <div>
+            <label for="flavorNotes">Flavor Notes</label>
+            <textarea id="flavorNotes" name="flavorNotes" rows="2" th:text="${coffee.flavorNotes}"></textarea>
+        </div>
+
+        <!-- Brew Method Selection -->
+        <div>
+            <label for="brewMethod">Brew Method</label>
+            <select id="brewMethod" name="brewMethod">
+                <option th:selected="${coffee.brewMethod == 'Espresso'}">Espresso</option>
+                <option th:selected="${coffee.brewMethod == 'Drip'}">Drip</option>
+                <option th:selected="${coffee.brewMethod == 'French Press'}">French Press</option>
+            </select>
+        </div>
+
+        <button type="submit">Update Coffee</button> <!-- Button submits the form -->
+    </form>
+</div>
+
+<!-- Link to return to the coffee list -->
+<a href="/">Back to List</a>
+
+</body>
+</html>
