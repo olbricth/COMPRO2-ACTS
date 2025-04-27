@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Edit [[${coffee.name}]]</title>
+    <link rel="stylesheet" th:href="@{/css/form.css}">
+</head>
+<body>
+<h1 th:text="'Edit ' + ${coffee.name}"></h1>
+<div>
+    <form action="/update" method="POST" th:object="${coffee}">
+        <input type="hidden" name="id" th:field="*{id}">
+
+        <div>
+            <label for="name">Name</label>
+            <input type="text" id="name" th:field="*{name}" required minlength="2" maxlength="50" th:classappend="${#fields.hasErrors('name')} ? 'error' : ''">
+            <p class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+        </div>
+
+        <div>
+            <label for="type">Type</label>
+            <select id="type" th:field="*{type}" required>
+                <option value="Arabica">Arabica</option>
+                <option value="Robusta">Robusta</option>
+            </select>
+            <p class="error" th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></p>
+        </div>
+
+        <div>
+            <label for="size">Size</label>
+            <select id="size" th:field="*{size}" required>
+                <option value="Small">Small</option>
+                <option value="Medium">Medium</option>
+                <option value="Large">Large</option>
+            </select>
+            <p class="error" th:if="${#fields.hasErrors('size')}" th:errors="*{size}"></p>
+        </div>
+
+        <div>
+            <label for="price">Price</label>
+            <input type="number" step="0.01" id="price" th:field="*{price}" required min="0.01">
+            <p class="error" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></p>
+        </div>
+
+        <div>
+            <label for="roastLevel">Roast Level</label>
+            <select th:field="*{roastLevel}" id="roastLevel" required>
+                <option value="Light">Light</option>
+                <option value="Medium">Medium</option>
+                <option value="Dark">Dark</option>
+            </select>
+            <p class="error" th:if="${#fields.hasErrors('roastLevel')}" th:errors="*{roastLevel}"></p>
+        </div>
+
+        <div>
+            <label for="origin">Origin</label>
+            <input type="text" id="origin" th:field="*{origin}" maxlength="100">
+            <p class="error" th:if="${#fields.hasErrors('origin')}" th:errors="*{origin}"></p>
+        </div>
+
+        <div>
+            <label for="isDecaf">Decaf</label>
+            <input type="checkbox" id="isDecaf" th:field="*{isDecaf}">
+        </div>
+
+        <div>
+            <label for="stock">Stock</label>
+            <input type="number" id="stock" th:field="*{stock}" required min="0">
+            <p class="error" th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}"></p>
+        </div>
+
+        <div>
+            <label>Flavor Notes:</label>
+            <input type="checkbox" name="flavorNotes" value="Chocolate"> Chocolate
+            <input type="checkbox" name="flavorNotes" value="Citrus"> Citrus
+        </div>
+
+        <div>
+            <label for="brewMethod">Brew Method</label>
+            <select id="brewMethod" th:field="*{brewMethod}" required>
+                <option value="Drip">Drip</option>
+                <option value="French Press">French Press</option>
+                <option value="Espresso">Espresso</option>
+            </select>
+            <p class="error" th:if="${#fields.hasErrors('brewMethod')}" th:errors="*{brewMethod}"></p>
+        </div>
+
+        <div class="action">
+            <a th:href="@{/}" class="button cancel">Cancel</a>
+            <button type="submit">Save</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>
