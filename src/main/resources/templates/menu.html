@@ -1,10 +1,275 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+  <meta charset="UTF-8" />
+  <title>Coffee Menu</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #ffe4f2;
+      color: #333;
+      display: flex;
+      min-height: 100vh;
+      flex-direction: row;
+    }
+
+
+      aside {
+        min-width: 250px;
+        width: 306px;
+        background-color: #fff0f5;
+        color: #333;
+        height: 100vh;
+        padding: 1rem;
+        position: fixed;
+        left: 0;
+        top: 0;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        border-right: 1px solid #f3c6d4;
+        font-family: 'Pacifico', cursive;
+        font-weight: 600;
+        transition: all 0.3s ease-in-out;
+        z-index: 10;
+      }
+
+      aside ul {
+        list-style: none;
+        flex-grow: 1;
+        margin-top: 2rem;
+      }
+
+      aside ul li {
+        padding: 10px;
+        cursor: pointer;
+        border-radius: 8px;
+        color: #d63384;
+        margin-bottom: 0.3rem;
+      }
+
+      aside ul li:hover,
+      aside ul li.active {
+        background-color: #ffb6c1;
+        color: white;
+        font-weight: 700;
+      }
+
+      aside ul li a {
+        color: inherit;
+        text-decoration: none;
+        display: block;
+      }
+
+      .profile {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding-top: 1rem;
+        border-top: 1px solid #d63384;
+        margin-top: auto;
+        font-weight: normal;
+        font-family: Arial, sans-serif;
+      }
+
+      .profile img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+      }
+
+      .profile div {
+        line-height: 1.2;
+        color: #d63384;
+      }
+
+
+    main {
+      margin-left: 306px;
+      padding: 2rem;
+      flex: 1;
+      transition: margin 0.3s ease;
+    }
+
+    h1 {
+      color: #ff69b4;
+      font-family: 'Pacifico', cursive;
+      font-size: 64px;
+      text-align: center;
+      margin-bottom: 30px;
+      text-shadow: 2px 2px 4px rgba(255, 182, 193, 0.4);
+    }
+
+    .menu-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      padding: 20px;
+    }
+
+    .coffee-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      width: 260px;
+      padding: 20px;
+      text-align: center;
+      transition: transform 0.2s;
+      color: #333;
+    }
+
+    .coffee-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .coffee-image {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+
+    .coffee-name {
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #ff69b4;
+    }
+
+    .coffee-type {
+      font-size: 14px;
+      color: #888;
+      margin-bottom: 10px;
+    }
+
+    .coffee-price {
+      font-size: 18px;
+      color: #4b2e2e;
+      font-weight: bold;
+    }
+
+    .coffee-details {
+      font-size: 13px;
+      margin-top: 10px;
+      color: #666;
+      text-align: left;
+    }
+
+    .coffee-details div {
+      margin-bottom: 4px;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 1024px) {
+      aside {
+        width: 220px;
+      }
+
+      main {
+        margin-left: 220px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+      }
+
+      aside {
+        position: relative;
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        overflow-x: auto;
+      }
+
+      aside ul {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        margin-top: 0;
+      }
+
+      aside ul li {
+        margin-right: 1rem;
+        margin-bottom: 0;
+      }
+
+      .profile {
+        display: none;
+      }
+
+      main {
+        margin-left: 0;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 40px;
+      }
+
+      .coffee-card {
+        width: 90%;
+      }
+    }
+  </style>
 </head>
 <body>
-$END$
+
+<aside>
+  <ul>
+    <li><a th:href="@{/}">Dashboard</a></li>
+    <li class="active"><a th:href="@{/dashboard}">Live Menu</a></li>
+    <li><a th:href="@{/add}">Add new coffee</a></li>
+    <li><a href="/logout">Logout</a></li>
+  </ul>
+  <div class="profile">
+    <img src="https://static.vecteezy.com/system/resources/thumbnails/020/765/399/small_2x/default-profile-account-unknown-icon-black-silhouette-free-vector.jpg" alt="Profile" />
+    <div>
+      <strong>Evano</strong><br />
+      Project Manager
+    </div>
+  </div>
+</aside>
+
+<main>
+  <h1>Coffee Menu</h1>
+
+  <div class="menu-container">
+    <div class="coffee-card" th:each="coffee : ${coffee}">
+      <img class="coffee-image"
+           th:src="@{'/Pictures/' + ${coffee.name} + '.png'}"
+           alt="Coffee Image"
+           onerror="this.onerror=null;this.src='/Pictures/default.png';" />
+
+      <div class="coffee-name" th:text="${coffee.name}">Coffee Name</div>
+      <div class="coffee-type" th:text="${coffee.type} + ' • ' + ${coffee.size}">Type • Size</div>
+      <div class="coffee-price">₱<span th:text="${coffee.price}">0.00</span></div>
+
+      <div class="coffee-details">
+        <div><strong>Roast:</strong> <span th:text="${coffee.roastLevel}">Medium</span></div>
+        <div><strong>Origin:</strong> <span th:text="${coffee.origin}">Brazil</span></div>
+        <div><strong>Decaf:</strong> <span th:text="${coffee.decaf} ? 'Yes' : 'No'">No</span></div>
+        <div><strong>Flavor Notes:</strong>
+          <span th:text="${coffee.flavorNotes != null} ? ${#strings.arrayJoin(coffee.flavorNotes, ', ')} : 'None'">None</span>
+        </div>
+        <div><strong>Brew Method:</strong> <span th:text="${coffee.brewMethod}">Drip</span></div>
+      </div>
+    </div>
+  </div>
+</main>
+
 </body>
 </html>

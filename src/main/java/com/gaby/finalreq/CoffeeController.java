@@ -4,7 +4,10 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -52,32 +55,38 @@ public class CoffeeController {
     // Save new coffee
     @PostMapping("/save")
     public String save(@RequestParam String name,
-                       @RequestParam String type,
-                       @RequestParam String size,
+                       @RequestParam List<String> type,
+                       @RequestParam List<String> size,
                        @RequestParam double price,
-                       @RequestParam String roastLevel,
-                       @RequestParam String origin,
-                       @RequestParam Boolean isDecaf,
-                       @RequestParam int stock,
-                       @RequestParam List<String> flavorNotes,
-                       @RequestParam String brewMethod,
-                       HttpSession session) {
+                       @RequestParam List<String> roastLevel,
+                       @RequestParam("photo") MultipartFile photo,
+                       HttpSession session) throws IOException {
+
         if (session.getAttribute("loggedInUser") == null) {
             return "redirect:/login";
         }
 
+        // Save image to local uploads directory
+        String uploadsDir = "uploads/";
+        String realPath = new File(".").getCanonicalPath() + File.separator + uploadsDir;
+        File uploadDir = new File(realPath);
+        if (!uploadDir.exists()) {
+            uploadDir.mkdirs();
+        }
+
+        String fileName = System.currentTimeMillis() + "_" + photo.getOriginalFilename();
+        File destinationFile = new File(uploadDir, fileName);
+        photo.transferTo(destinationFile);
+
+        // Create and populate Coffee object
         Coffee c = new Coffee();
         c.setId(coffeeService.getId() + 1);
         c.setName(name);
-        c.setType(type);
-        c.setSize(size);
+        c.setType(String.join(", ", type));
+        c.setSize(String.join(", ", size));
         c.setPrice(price);
-        c.setRoastLevel(roastLevel);
-        c.setOrigin(origin);
-        c.setDecaf(isDecaf);
-        c.setStock(stock);
-        c.setFlavorNotes(flavorNotes);
-        c.setBrewMethod(brewMethod);
+        c.setRoastLevel(String.join(", ", roastLevel));
+        c.setImagePath("/" + uploadsDir + fileName);
 
         coffeeService.addCoffee(c);
         return "redirect:/";
@@ -138,7 +147,7 @@ public class CoffeeController {
         return "redirect:/";
     }
 
-    // **Added dashboard method**
+    // Dashboard/menu page
     @GetMapping("/dashboard")
     public String dashboard(Model model, HttpSession session) {
         if (session.getAttribute("loggedInUser") == null) {
@@ -147,6 +156,6 @@ public class CoffeeController {
 
         List<Coffee> coffeeList = coffeeService.getCoffeeExamList();
         model.addAttribute("coffee", coffeeList);
-        return "menu";  // Render menu.html
+        return "menu";
     }
 }

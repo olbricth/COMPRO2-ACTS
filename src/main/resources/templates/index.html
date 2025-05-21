@@ -1,196 +1,364 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-  <meta charset="UTF-8">
-  <title>Coffee</title>
+  <!DOCTYPE html>
+  <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Coffee</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
 
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins&display=swap');
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-    body {
-      background-color: #ffe4f2; /* soft girly pink */
-      color: #333;
-      font-family: 'Poppins', sans-serif;
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
-    }
+      body {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        height: 100vh;
+        font-family: 'Arial', sans-serif;
+        background-color: #ffe6f0;
+      }
 
-    h1 {
-      color: #ff69b4;
-      text-align: center;
-      font-size: 64px;
-     font-family: 'Pacifico', cursive;
-      font-weight: 700;
-      text-shadow: 2px 2px 4px rgba(255, 182, 193, 0.4);
-      margin-top: 30px;
-    }
+      aside {
+        min-width: 250px;
+        width: 306px;
+        background-color: #fff0f5;
+        color: #333;
+        height: 100vh;
+        padding: 1rem;
+        position: fixed;
+        left: 0;
+        top: 0;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        border-right: 1px solid #f3c6d4;
+        font-family: 'Pacifico', cursive;
+        font-weight: 600;
+        transition: all 0.3s ease-in-out;
+        z-index: 10;
+      }
 
-    .dashboard-container {
-      display: flex;
-      justify-content: center;
-      margin-top: 20px;
-    }
+      aside ul {
+        list-style: none;
+        flex-grow: 1;
+        margin-top: 2rem;
+      }
 
-    a {
-      text-decoration: none;
-      transition: all 0.3s ease;
-    }
+      aside ul li {
+        padding: 10px;
+        cursor: pointer;
+        border-radius: 8px;
+        color: #d63384;
+        margin-bottom: 0.3rem;
+      }
 
-    a[href^="/add"],
-    .dashboard-btn,
-    button {
-      background: linear-gradient(45deg, #f78fb3, #f8a5c2);
-      color: white;
-      padding: 10px 16px;
-      border-radius: 8px;
-      font-weight: bold;
-      border: none;
-      cursor: pointer;
-      font-size: 14px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
+      aside ul li:hover,
+      aside ul li.active {
+        background-color: #ffb6c1;
+        color: white;
+        font-weight: 700;
+      }
 
-    .dashboard-btn:hover,
-    .add-coffee:hover,
-    button:hover {
-      background: linear-gradient(45deg, #f8a5c2, #f78fb3);
-      transform: scale(1.05);
-    }
+      aside ul li a {
+        color: inherit;
+        text-decoration: none;
+        display: block;
+      }
 
-    a[href^="/edit"] {
-      background-color: #ff6ec7;
-      padding: 6px 12px;
-      border-radius: 6px;
-      color: white;
-    }
+      .profile {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding-top: 1rem;
+        border-top: 1px solid #d63384;
+        margin-top: auto;
+        font-weight: normal;
+        font-family: Arial, sans-serif;
+      }
 
-    a[href^="/delete"] {
-      background-color: #f368e0;
-      padding: 6px 12px;
-      border-radius: 6px;
-      color: white;
-    }
+      .profile img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+      }
 
-    .form-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin: 20px;
-      flex-wrap: wrap;
-    }
+      .profile div {
+        line-height: 1.2;
+        color: #d63384;
+      }
 
-    .search-form {
-      display: flex;
-      gap: 10px;
-    }
+      main {
+        margin-left: 306px;
+        padding: 2rem;
+        flex: 1;
+        background-color: #fffafd;
+        color: #333;
+        min-width: 0;
+        overflow-x: auto;
+      }
 
-    form input[type="text"] {
-      padding: 8px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      width: 200px;
-      background-color: white;
-    }
+      h1 {
+        color: #d63384;
+        font-family: 'Pacifico', cursive;
+        font-weight: 600;
+        letter-spacing: 2px;
+        margin-bottom: 1rem;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+      }
 
-    table {
-      width: 95%;
-      margin: 0 auto 30px;
-      border-collapse: collapse;
-      border-radius: 10px;
-      overflow: hidden;
-      background-color: white;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
+      .coffee-actions {
+        display: flex;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+      }
 
-    th, td {
-      padding: 12px 15px;
-      text-align: left;
-      border-bottom: 1px solid #eee;
-      font-size: 14px;
-    }
+      .coffee-actions form {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+      }
 
-    th {
-      background-color: #ffe0f0;
-      color: #333;
-    }
+      .coffee-actions input[type="text"] {
+        padding: 6px;
+        border-radius: 4px;
+        border: 1px solid #ffb6c1;
+        min-width: 180px;
+      }
 
-    tr:nth-child(even) {
-      background-color: #fff5f8;
-    }
+      .coffee-actions button {
+        padding: 6px 12px;
+        border-radius: 4px;
+        border: none;
+        background-color: #ff69b4;
+        color: white;
+        cursor: pointer;
+        font-weight: 600;
+      }
 
-    tr:hover {
-      background-color: #ffeaf5;
-    }
+      .coffee-actions button:hover {
+        background-color: #ff85c1;
+      }
 
-    img {
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-  </style>
-</head>
-<body>
-<h1>Coffee List</h1>
+   table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+  border-collapse: collapse;
+  background-color: #ffe6f0; /* Light pink background */
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+  border: 2px solid #d63384; /* Thicker outer border */
+}
 
-<!-- Horizontally centered and aligned vertically with the add button -->
-<div class="dashboard-container">
-  <!-- Changed href from /menu.html to /dashboard -->
-  <a href="/dashboard" class="dashboard-btn">Dashboard</a>
-</div>
+th, td {
+  padding: 10px;
+  border: 2px solid #d63384; /* Thicker cell borders */
+  text-align: left;
+  vertical-align: middle;
+  font-size: 0.9rem;
+  color: #333;
+}
 
-<div class="form-container">
-  <a href="/add" class="add-coffee">Add new coffee</a>
+      }
+th {
+  background-color: #ffc1d6; /* Slightly darker pink for header */
+  font-weight: 700;
+  color: #d63384;
+}
 
-  <div class="search-form">
-    <form>
-      <input type="text" name="search" placeholder="Search...">
-      <button>Search</button>
-    </form>
-  </div>
-</div>
 
-<table>
-  <thead>
-  <tr>
-    <th>Photo</th>
-    <th>ID</th>
-    <th>Name</th>
-    <th>Type</th>
-    <th>Size</th>
-    <th>Price(PHP)</th>
-    <th>Roast Level</th>
-    <th>Origin</th>
-    <th>Decaf</th>
-    <th>Stock</th>
-    <th>Flavor Notes</th>
-    <th>Brew Method</th>
-    <th>Actions</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr th:each="coffee : ${coffee}">
-    <td>
-      <img th:src="@{'/Pictures/' + ${coffee.name} + '.png'}"
-           alt="Coffee Image"
-           style="width: 60px; height: 60px; object-fit: cover; border-radius: 6px;">
-    </td>
-    <td th:text="${coffee.id}"></td>
-    <td th:text="${coffee.name}"></td>
-    <td th:text="${coffee.type}"></td>
-    <td th:text="${coffee.size}"></td>
-    <td th:text="${coffee.price}"></td>
-    <td th:text="${coffee.roastLevel}"></td>
-    <td th:text="${coffee.origin}"></td>
-    <td th:text="${coffee.decaf}"></td>
-    <td th:text="${coffee.stock}"></td>
-    <td th:text="${coffee.flavorNotes != null ? #strings.arrayJoin(coffee.flavorNotes, ', ') : 'No flavor notes'}"></td>
-    <td th:text="${coffee.brewMethod}"></td>
-    <td>
-      <a th:href="@{/delete(id=${coffee.id})}">Delete</a>
-      <a th:href="@{/edit(id=${coffee.id})}">Edit</a>
-    </td>
-  </tr>
-  </tbody>
-</table>
-</body>
-</html>
+      tbody tr:nth-child(even) {
+        background-color: #fff0f5;
+      }
+
+      tbody tr:hover {
+        background-color: #ffe0f0;
+      }
+
+      .actions-cell {
+        white-space: nowrap;
+        display: flex;
+        gap: 0.5rem;
+      }
+
+      .actions-cell a {
+        background-color: #ff69b4;
+        color: white;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        text-decoration: none;
+        display: inline-block;
+      }
+
+      .actions-cell a.delete-btn {
+        background-color: #ff4d6d;
+      }
+
+      .actions-cell a:hover {
+        opacity: 0.9;
+      }
+
+      #toggleSidebar {
+        display: none;
+        margin-bottom: 1rem;
+        background: #ff69b4;
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        font-weight: bold;
+      }
+
+      @media (max-width: 1024px) {
+        aside {
+          position: absolute;
+          left: -250px;
+        }
+
+        aside.show {
+          left: 0;
+        }
+
+        main {
+          margin-left: 0;
+          padding: 1rem;
+        }
+
+        #toggleSidebar {
+          display: block;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .coffee-actions {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .coffee-actions form {
+          flex-direction: column;
+          width: 100%;
+        }
+
+        .coffee-actions input[type="text"],
+        .coffee-actions button {
+          width: 100%;
+        }
+
+        th, td {
+          font-size: 0.8rem;
+          padding: 8px;
+        }
+
+        h1 {
+          font-size: 1.5rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        h1 {
+          font-size: 1.2rem;
+        }
+
+        .profile div {
+          font-size: 0.85rem;
+        }
+
+        .actions-cell {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+  <aside id="sidebar">
+    <ul>
+      <li class="active"><a href="/dashboard">Dashboard</a></li>
+      <li><a href="/dashboard">Menu</a></li>
+      <li><a href="/add">New coffee</a></li>
+      <li><a href="/logout">Logout</a></li>
+    </ul>
+    <div class="profile">
+      <img src="https://static.vecteezy.com/system/resources/thumbnails/020/765/399/small_2x/default-profile-account-unknown-icon-black-silhouette-free-vector.jpg" alt="Profile" />
+      <div>
+        <strong>Gaby</strong><br />
+        Project Manager
+      </div>
+    </div>
+  </aside>
+
+  <main>
+    <button id="toggleSidebar" onclick="document.getElementById('sidebar').classList.toggle('show')">☰ Menu</button>
+
+    <h1>Coffee List</h1>
+    <div class="coffee-actions">
+      <form method="get" action="/search">
+        <input type="text" name="search" placeholder="Search..." />
+        <button type="submit">Search</button>
+      </form>
+    </div>
+
+    <table>
+      <thead>
+      <tr>
+        <th>Photo</th>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Size</th>
+        <th>Price (Peso)</th>
+        <th>Roast Level</th>
+        <th>Origin</th>
+        <th>Decaf</th>
+        <th>Stock</th>
+        <th>Flavor Notes</th>
+        <th>Brew Method</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="coffee : ${coffee}">
+        <td>
+          <img th:src="@{'/pictures/' + ${coffee.name} + '.png'}"
+               alt="Coffee Image"
+               style="width: 60px; height: 60px; object-fit: cover; border-radius: 6px;" />
+        </td>
+        <td th:text="${coffee.id}"></td>
+        <td th:text="${coffee.name}"></td>
+        <td th:text="${coffee.type}"></td>
+        <td th:text="${coffee.size}"></td>
+        <td th:text="${coffee.price}"></td>
+        <td th:text="${coffee.roastLevel}"></td>
+        <td th:text="${coffee.origin}"></td>
+        <td th:text="${coffee.decaf == true or coffee.decaf == 'true' ? 'Yes' : 'No'}"></td>
+        <td th:text="${coffee.stock}"></td>
+        <td th:text="${coffee.flavorNotes != null ? #strings.arrayJoin(coffee.flavorNotes, ', ') : 'No flavor notes'}"></td>
+        <td th:text="${coffee.brewMethod}"></td>
+        <td class="actions-cell">
+          <a th:href="@{/edit(id=${coffee.id})}">Edit</a>
+          <a th:href="@{/delete(id=${coffee.id})}" class="delete-btn">Delete</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </main>
+
+  <script>
+    // Ensure toggle button visibility is correct on page load
+    window.addEventListener('resize', () => {
+      document.getElementById('toggleSidebar').style.display = window.innerWidth <= 1024 ? 'block' : 'none';
+    });
+    window.dispatchEvent(new Event('resize'));
+  </script>
+  </body>
+  </html>
