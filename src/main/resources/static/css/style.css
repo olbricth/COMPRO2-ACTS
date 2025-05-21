@@ -1,0 +1,115 @@
+/* General Body Styles */
+body {
+    background: linear-gradient(45deg, #ff6ec7, #ff9a8b, #6a11cb, #2575fc); /* Gradient colors */
+    background-size: 400% 400%; /* Ensures large gradient area */
+    animation: gradientAnimation 15s ease infinite; /* Animation for the background change */
+    color: black;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh; /* Ensure body covers full height of the viewport */
+}
+
+/* Heading Styles */
+h1 {
+    color: white;
+    text-align: center;
+    font-size: 32px;
+    padding-top: 20px;
+}
+
+/* Links */
+a {
+    text-decoration: none;
+    margin-right: 10px;
+    color: white;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Styled links with specific backgrounds */
+a[href^="/add"] {
+    background-color: blue;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 4px;
+}
+
+a[href^="/edit"] {
+    background-color: green;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+a[href^="/delete"] {
+    background-color: red;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+/* Form Styles */
+form {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+input[type="text"] {
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    padding: 6px 12px;
+    background-color: blue;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: darkblue;
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f4f4f4;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Gradient Animation */
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}

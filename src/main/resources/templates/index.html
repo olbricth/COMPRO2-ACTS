@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Coffee</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins&display=swap');
+
+    body {
+      background-color: #ffe4f2; /* soft girly pink */
+      color: #333;
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+
+    h1 {
+      color: #ff69b4;
+      text-align: center;
+      font-size: 64px;
+     font-family: 'Pacifico', cursive;
+      font-weight: 700;
+      text-shadow: 2px 2px 4px rgba(255, 182, 193, 0.4);
+      margin-top: 30px;
+    }
+
+    .dashboard-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    a {
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    a[href^="/add"],
+    .dashboard-btn,
+    button {
+      background: linear-gradient(45deg, #f78fb3, #f8a5c2);
+      color: white;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .dashboard-btn:hover,
+    .add-coffee:hover,
+    button:hover {
+      background: linear-gradient(45deg, #f8a5c2, #f78fb3);
+      transform: scale(1.05);
+    }
+
+    a[href^="/edit"] {
+      background-color: #ff6ec7;
+      padding: 6px 12px;
+      border-radius: 6px;
+      color: white;
+    }
+
+    a[href^="/delete"] {
+      background-color: #f368e0;
+      padding: 6px 12px;
+      border-radius: 6px;
+      color: white;
+    }
+
+    .form-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 20px;
+      flex-wrap: wrap;
+    }
+
+    .search-form {
+      display: flex;
+      gap: 10px;
+    }
+
+    form input[type="text"] {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      width: 200px;
+      background-color: white;
+    }
+
+    table {
+      width: 95%;
+      margin: 0 auto 30px;
+      border-collapse: collapse;
+      border-radius: 10px;
+      overflow: hidden;
+      background-color: white;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+      font-size: 14px;
+    }
+
+    th {
+      background-color: #ffe0f0;
+      color: #333;
+    }
+
+    tr:nth-child(even) {
+      background-color: #fff5f8;
+    }
+
+    tr:hover {
+      background-color: #ffeaf5;
+    }
+
+    img {
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+<h1>Coffee List</h1>
+
+<!-- Horizontally centered and aligned vertically with the add button -->
+<div class="dashboard-container">
+  <!-- Changed href from /menu.html to /dashboard -->
+  <a href="/dashboard" class="dashboard-btn">Dashboard</a>
+</div>
+
+<div class="form-container">
+  <a href="/add" class="add-coffee">Add new coffee</a>
+
+  <div class="search-form">
+    <form>
+      <input type="text" name="search" placeholder="Search...">
+      <button>Search</button>
+    </form>
+  </div>
+</div>
+
+<table>
+  <thead>
+  <tr>
+    <th>Photo</th>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Type</th>
+    <th>Size</th>
+    <th>Price(PHP)</th>
+    <th>Roast Level</th>
+    <th>Origin</th>
+    <th>Decaf</th>
+    <th>Stock</th>
+    <th>Flavor Notes</th>
+    <th>Brew Method</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="coffee : ${coffee}">
+    <td>
+      <img th:src="@{'/Pictures/' + ${coffee.name} + '.png'}"
+           alt="Coffee Image"
+           style="width: 60px; height: 60px; object-fit: cover; border-radius: 6px;">
+    </td>
+    <td th:text="${coffee.id}"></td>
+    <td th:text="${coffee.name}"></td>
+    <td th:text="${coffee.type}"></td>
+    <td th:text="${coffee.size}"></td>
+    <td th:text="${coffee.price}"></td>
+    <td th:text="${coffee.roastLevel}"></td>
+    <td th:text="${coffee.origin}"></td>
+    <td th:text="${coffee.decaf}"></td>
+    <td th:text="${coffee.stock}"></td>
+    <td th:text="${coffee.flavorNotes != null ? #strings.arrayJoin(coffee.flavorNotes, ', ') : 'No flavor notes'}"></td>
+    <td th:text="${coffee.brewMethod}"></td>
+    <td>
+      <a th:href="@{/delete(id=${coffee.id})}">Delete</a>
+      <a th:href="@{/edit(id=${coffee.id})}">Edit</a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

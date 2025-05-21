@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>New Coffee</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Poppins&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(45deg, #fcb0f1, #f9a1c6, #fbc2eb, #fcb69f);
+      background-size: 400% 400%;
+      animation: gradientAnimation 15s ease infinite;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 30px;
+    }
+
+    @keyframes gradientAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 30px;
+      width: 100%;
+      max-width: 650px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+      color: #fff;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 34px;
+      font-family: 'Pacifico', cursive;
+      font-weight: 600;
+      color: white;
+      margin-bottom: 25px;
+      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    label {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 5px;
+      color: #fff1f9;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+      padding: 10px;
+      border: none;
+      border-radius: 10px;
+      background-color: rgba(255, 255, 255, 0.2);
+      color: white;
+      font-size: 15px;
+      outline: none;
+      transition: 0.3s ease;
+    }
+
+    input[type="text"]::placeholder,
+    input[type="number"]::placeholder {
+      color: #ffe4f3;
+    }
+
+    input[type="text"]:focus,
+    input[type="number"]:focus {
+      background-color: rgba(255, 255, 255, 0.3);
+      border: 1px solid #f78fb3;
+    }
+
+    .checkbox-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .checkbox-group label {
+      display: inline-flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+      margin-right: 6px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      background: linear-gradient(45deg, #f78fb3, #f8a5c2);
+      color: white;
+      border: none;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background: linear-gradient(45deg, #f8a5c2, #f78fb3);
+      transform: scale(1.02);
+    }
+
+    a {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s ease;
+    }
+
+    a:hover {
+      color: #fcdff0;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>New Coffee</h1>
+  <form action="/save" method="POST">
+    <div>
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required>
+    </div>
+
+    <div>
+      <label>Type:</label>
+      <div class="checkbox-group">
+        <label><input type="checkbox" name="type[]" value="Robusta">Robusta</label>
+        <label><input type="checkbox" name="type[]" value="Arabica">Arabica</label>
+      </div>
+    </div>
+
+    <div>
+      <label>Size:</label>
+      <div class="checkbox-group">
+        <label><input type="checkbox" name="size[]" value="Small">Small</label>
+        <label><input type="checkbox" name="size[]" value="Medium">Medium</label>
+        <label><input type="checkbox" name="size[]" value="Large">Large</label>
+      </div>
+    </div>
+
+    <div>
+      <label for="price">Price:</label>
+      <input type="number" step="0.1" id="price" name="price" required>
+    </div>
+
+    <div>
+      <label>Roast Level:</label>
+      <div class="checkbox-group">
+        <label><input type="checkbox" name="roastLevel[]" value="Light">Light</label>
+        <label><input type="checkbox" name="roastLevel[]" value="Medium">Medium</label>
+        <label><input type="checkbox" name="roastLevel[]" value="Dark">Dark</label>
+      </div>
+    </div>
+
+    <div>
+      <label for="origin">Origin:</label>
+      <input type="text" id="origin" name="origin" required>
+    </div>
+
+    <div>
+      <label>Decaf:</label>
+      <input type="hidden" name="isDecaf" value="false">
+      <label><input type="checkbox" id="isDecaf" name="isDecaf" value="true">Yes</label>
+    </div>
+
+    <div>
+      <label>Brew method:</label>
+      <div class="checkbox-group">
+        <label><input type="checkbox" name="brewMethod[]" value="Drip">Drip</label>
+        <label><input type="checkbox" name="brewMethod[]" value="French-Press">French Press</label>
+        <label><input type="checkbox" name="brewMethod[]" value="Espresso">Espresso</label>
+      </div>
+    </div>
+
+    <div>
+      <label for="stock">Stock:</label>
+      <input type="number" id="stock" name="stock" required>
+    </div>
+
+    <div>
+      <label>Flavor Notes:</label>
+      <div class="checkbox-group">
+        <label><input type="checkbox" name="flavorNotes[]" value="Chocolate">Chocolate</label>
+        <label><input type="checkbox" name="flavorNotes[]" value="Citrus">Citrus</label>
+        <label><input type="checkbox" name="flavorNotes[]" value="Fruity">Fruity</label>
+        <label><input type="checkbox" name="flavorNotes[]" value="Roasted">Roasted</label>
+      </div>
+    </div>
+
+    <button type="submit">Save</button>
+  </form>
+  <a href="/">Back to List</a>
+</div>
+</body>
+</html>
