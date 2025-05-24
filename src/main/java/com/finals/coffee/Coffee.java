@@ -1,4 +1,4 @@
-package com.midterms.exam;
+package com.finals.coffee;
 import java.util.List;
 
 public class Coffee {

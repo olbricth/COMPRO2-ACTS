@@ -1,0 +1,3 @@
+ID,Name,Type,Size,Price,Roast Level,Origin,IsDecaf,Stock,Flavor Notes,Brew Method
+1,Espresso,Arabica,Small,90.0,Light,Ethiopia,true,1,,Espresso
+2,Mocha,Robusta,Medium,50.0,Medium,Ethiopia,false,3,,Drip

@@ -1,10 +1,10 @@
-package com.midterms.exam;
+package com.finals.coffee;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ExamApplicationTests {
+class CoffeeApplicationTests {
 
 	@Test
 	void contextLoads() {

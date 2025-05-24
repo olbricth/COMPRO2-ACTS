@@ -30,11 +30,12 @@
     /* Table styling */
     table {
         width: 90%;
-        margin: 10px auto; /* Centers table */
-        background-color: rgb(255, 183, 183); /* Darker pink */
-        border-spacing: 2px; /* Minimizes cell spacing */
-        border: 3px solid #5d0032; /* Dark pink border */
+        margin: 10px auto;
+        background-color: rgb(255, 183, 183);
+        border-spacing: 2px;
+        border: 3px solid #5d0032;
         border-radius: 10px;
+        border-collapse: collapse;
     }
 
     th, td {
@@ -140,6 +141,7 @@
 <table border="1">
     <thead>
     <tr>
+        <th>ID</th>
         <th>Coffee Name</th>
         <th>Coffee Type</th>
         <th>Coffee Size</th>
@@ -156,6 +158,7 @@
     <tbody>
     <!-- Iterates over each coffee object dynamically -->
     <tr th:each="coffee : ${coffees}">
+        <td th:text="${coffee.id}"></td>
         <td th:text="${coffee.name}"></td>
         <td th:text="${coffee.type}"></td>
         <td th:text="${coffee.size}"></td>

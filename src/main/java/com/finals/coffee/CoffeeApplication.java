@@ -1,13 +1,13 @@
-package com.midterms.exam;
+package com.finals.coffee;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ExamApplication {
+public class CoffeeApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ExamApplication.class, args);
+		SpringApplication.run(CoffeeApplication.class, args);
 	}
 
 }
